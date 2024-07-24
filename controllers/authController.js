@@ -45,7 +45,7 @@ exports.loginUser = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
-
+        console.log("user", user)
         const payload = { user: { id: user.id } };
         jwt.sign(
             payload,
@@ -53,9 +53,9 @@ exports.loginUser = async (req, res) => {
             { expiresIn: '1h' },
             (err, token) => {
                 if (err) throw err;
-                let a ={ userId: user.id, token,username:user.username,email:user.email }
-                console.log("res",a)
-                res.json({ userId: user.id, token });
+                let a = { userId: user.id, token, username: user.username, email: user.email }
+                console.log("res", a)
+                res.json(a);
             }
         );
     } catch (err) {
