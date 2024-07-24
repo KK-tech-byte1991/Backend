@@ -14,7 +14,7 @@ exports.registerUser = async (req, res) => {
             return res.status(400).json({ msg: "Email already exists" });
         }
 
-        user = new User({ username, password,email });
+        user = new User({ username, password, email });
         await user.save();
 
         const payload = { user: { id: user.id } };
@@ -24,7 +24,7 @@ exports.registerUser = async (req, res) => {
             { expiresIn: '1h' },
             (err, token) => {
                 if (err) throw err;
-                res.json({ token });
+                res.json({ userId: user.id, token });
             }
         );
     } catch (err) {
@@ -53,7 +53,9 @@ exports.loginUser = async (req, res) => {
             { expiresIn: '1h' },
             (err, token) => {
                 if (err) throw err;
-                res.json({ token });
+                let a ={ userId: user.id, token,username:user.username,email:user.email }
+                console.log("res",a)
+                res.json({ userId: user.id, token });
             }
         );
     } catch (err) {
