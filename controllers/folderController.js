@@ -17,7 +17,7 @@ const addFolder = async (req, res, next) => {
         })
 
         await newFolder.save();
-        res.status(201).send("Folder Created Successfully");
+        res.status(201).json({ msg: 'Folder Created Successfully' })
 
     } catch (err) {
         next(err)
@@ -47,4 +47,4 @@ const deleteFolder = async (req, res, next) => {
     }
 }
 
-module.exports = { addFolder, getFoldersByUserId ,deleteFolder}
+module.exports = { addFolder, getFoldersByUserId, deleteFolder }
