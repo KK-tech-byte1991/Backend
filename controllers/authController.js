@@ -17,14 +17,26 @@ exports.registerUser = async (req, res) => {
         user = new User({ username, password, email });
         await user.save();
 
+        // const payload = { user: { id: user.id } };
+        // jwt.sign(
+        //     payload,
+        //     'secret',
+        //     { expiresIn: '1h' },
+        //     (err, token) => {
+        //         if (err) throw err;
+        //         res.json({ userId: user.id, token });
+        //     }
+        // );
         const payload = { user: { id: user.id } };
         jwt.sign(
             payload,
-            'secret',
+            process.env.JWT_SECRET,
             { expiresIn: '1h' },
             (err, token) => {
                 if (err) throw err;
-                res.json({ userId: user.id, token });
+                let a = { userId: user.id, token, username: user.username, email: user.email }
+                console.log("res", a)
+                res.json(a);
             }
         );
     } catch (err) {

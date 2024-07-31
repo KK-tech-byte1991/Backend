@@ -96,12 +96,14 @@ const gettypebotById = async (req, res, next) => {
 }
 const deleteTypeBot = async (req, res, next) => {
     let a = req.params.id
+    console.log(a,"deletee")
     try {
-        await TypeBot.findByIdAndDelete(a)
+        await Typebot.findByIdAndDelete(a)
         res.status(200).send("Deleted Successfully");
     } catch (error) {
 
     }
+   
 }
 
 module.exports = { addtypebot, deleteTypeBot, deleteByElementId, gettypebotByFolderId, gettypebotByUserId, gettypebotById, updateById }

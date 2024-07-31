@@ -16,6 +16,10 @@ const elementSchema = new mongoose.Schema({
     link: {
         type: String,
 
+    },
+    code:{
+        type:String,
+        required:true
     }
 })
 const Element = mongoose.model('Element', elementSchema);

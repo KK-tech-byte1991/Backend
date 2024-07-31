@@ -56,4 +56,21 @@ const addElementToArray = async (req, res, next) => {
         next(err);
     }
 };
-module.exports = { addResponse, addElementToArray };
+
+const getResponsesByFormId = async (req, res, next) => {
+
+    const id = req.params.id
+
+    try {
+        console.log("userId", id)
+        const response = await ResponseModel.find().and([{ formId: id }])
+        console.log("response", response)
+        res.status(200).send(response)
+
+
+    } catch (error) {
+
+    }
+}
+
+module.exports = { addResponse, addElementToArray ,getResponsesByFormId};
