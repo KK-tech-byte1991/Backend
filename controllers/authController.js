@@ -126,7 +126,7 @@ exports.authMiddleware = async (req, res, next) => {
     if (!token) {
         return res.status(401).send('Access denied');
     }
-    console.log("jdxjdj11",token)
+    
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET); 
         console.log("jdxjdj",decoded)
