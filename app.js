@@ -3,7 +3,7 @@ const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
-const transformIdMiddleware = require('./transformIdMiddleware');
+// const transformIdMiddleware = require('./transformIdMiddleware');
 const app = express();
 const { authMiddleware } = require("./controllers/authController")
 connectDB();
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(transformIdMiddleware);
+// app.use(transformIdMiddleware);
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/folder', authMiddleware, require('./routes/folder'));
