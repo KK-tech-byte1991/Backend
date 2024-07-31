@@ -15,6 +15,8 @@ const addtypebot = async (req, res, next) => {
         res.status(201).send(a)
 
     } catch (err) {
+        console.log(err.errors.path,"err")
+        res.status(500).json({ msg: 'Fill All required Fields.' })
         next(err)
     }
 }
@@ -106,4 +108,5 @@ const deleteTypeBot = async (req, res, next) => {
    
 }
 
-module.exports = { addtypebot, deleteTypeBot, deleteByElementId, gettypebotByFolderId, gettypebotByUserId, gettypebotById, updateById }
+module.exports = { addtypebot, deleteTypeBot, deleteByElementId, gettypebotByFolderId,
+     gettypebotByUserId, gettypebotById, updateById }

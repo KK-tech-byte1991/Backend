@@ -42,12 +42,12 @@ const addResponse = async (req, res, next) => {
     }
 };
 const addElementToArray = async (req, res, next) => {
-    const { id } = req.params.id
+    const { id } = req.params
     try {
         const { element } = req.body;
         console.log("eleemmmmm", element)
         const response = await ResponseModel.findOneAndUpdate(
-            { id },
+            { _id:id },
             { $push: { elementResponse: element } },
             { new: true }
         );
