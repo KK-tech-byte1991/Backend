@@ -30,8 +30,10 @@ const getFoldersByUserId = async (req, res, next) => {
 
     try {
         console.log("userId", id)
-        const folders = await Folder.find().and([{ userId: id }]).select('_id folderName')
+        const folders = await Folder.find().and([{ userId: id }]).select('id folderName')
+       console.log("folders",folders)
         res.status(200).send(folders)
+        // res.status(200).transformAndSend(folders);
 
     } catch (error) {
 
