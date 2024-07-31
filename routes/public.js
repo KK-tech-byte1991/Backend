@@ -1,5 +1,5 @@
 const express = require('express');
-const { addtypebot, gettypebotByUserId, gettypebotByFolderId, gettypebotById, deleteFolder, updateById, deleteTypeBot, deleteByElementId } = require('../controllers/typebotController');
+const { addtypebot, gettypebotByUserId, gettypebotByFolderId, gettypebotById, deleteFolder, updateById, deleteTypeBot, deleteByElementId } = require('../controllers/typeBotController');
 const { addResponse,addElementToArray } = require("../controllers/responseController")
 const router = express.Router();
 
