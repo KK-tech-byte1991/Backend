@@ -1,4 +1,5 @@
 const Typebot = require("../models/typebot");
+const { Element } = require("../models/element")
 
 const addtypebot = async (req, res, next) => {
 
@@ -20,8 +21,7 @@ const addtypebot = async (req, res, next) => {
 const updateById = async (req, res, next) => {
     try {
         const { id } = req.body;
-        console.log("updatepayload",id,req.body)
-        // let updatedPayload={folderId,userId,flow}
+        console.log("updatepayload", id, req.body);
         const result = await Typebot.findByIdAndUpdate(id, req.body, { new: true });
         res.status(200).json({ msg: 'Form Updated Successfully.' })
     } catch (error) {
@@ -29,6 +29,25 @@ const updateById = async (req, res, next) => {
         throw error;
     }
 };
+
+const deleteByElementId = async (req, res, next) => {
+
+
+    try {
+        const elementId = req.params.id;
+
+        const result = await Typebot.updateMany(
+            { "flow._id": elementId },
+            { $pull: { flow: { _id: elementId } } }
+        );
+        console.log(result)
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error removing element' });
+    }
+
+}
 const gettypebotByUserId = async (req, res, next) => {
 
     const id = req.params.id
@@ -75,14 +94,14 @@ const gettypebotById = async (req, res, next) => {
 
     }
 }
-const deleteFolder = async (req, res, next) => {
+const deleteTypeBot = async (req, res, next) => {
     let a = req.params.id
     try {
-        await Folder.findByIdAndDelete(a)
+        await TypeBot.findByIdAndDelete(a)
         res.status(200).send("Deleted Successfully");
     } catch (error) {
 
     }
 }
 
-module.exports = { addtypebot, deleteFolder, gettypebotByFolderId, gettypebotByUserId, gettypebotById,updateById }
+module.exports = { addtypebot, deleteTypeBot, deleteByElementId, gettypebotByFolderId, gettypebotByUserId, gettypebotById, updateById }

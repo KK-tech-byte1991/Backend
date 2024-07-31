@@ -49,7 +49,7 @@ exports.loginUser = async (req, res) => {
         const payload = { user: { id: user.id } };
         jwt.sign(
             payload,
-            'secret',
+            process.env.JWT_SECRET,
             { expiresIn: '1h' },
             (err, token) => {
                 if (err) throw err;
@@ -58,6 +58,7 @@ exports.loginUser = async (req, res) => {
                 res.json(a);
             }
         );
+        // const token = jwt.sign({ userId: user._id, username: user.name }, JWT_SECRET, { expiresIn: '1h' });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
@@ -118,3 +119,22 @@ exports.updateUser = async (req, res, next) => {
         next(err)
     }
 }
+
+exports.authMiddleware = async (req, res, next) => {
+    const token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(401).send('Access denied');
+    }
+    console.log("jdxjdj11",token)
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET); 
+        console.log("jdxjdj",decoded)
+        req.user = decoded.user;
+
+        next();
+    } catch (error) {
+
+        res.status(401).send('Invalid token');
+    }
+};

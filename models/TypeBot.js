@@ -1,24 +1,5 @@
 const mongoose = require('mongoose');
-
-const element = new mongoose.Schema({
-    type: {
-        type: String,
-        required: true,
-
-    },
-    category: {
-        type: String,
-        required: true
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    link: {
-        type: String,
-       
-    }
-})
+const {elementSchema} = require("./element")
 
 const typebotSchema = new mongoose.Schema({
     userId: {
@@ -31,7 +12,7 @@ const typebotSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    flow: [element],
+    flow: [elementSchema],
     formName: {
         type: String,
         required: true

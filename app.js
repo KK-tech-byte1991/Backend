@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 const transformIdMiddleware = require('./transformIdMiddleware');
 const app = express();
-
+const { authMiddleware } = require("./controllers/authController")
 connectDB();
 
 app.use(bodyParser.json());
@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(transformIdMiddleware);
 
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/folder', require('./routes/folder'));
-app.use("/api/typebot", require("./routes/typebot"))
+app.use('/api/folder', authMiddleware, require('./routes/folder'));
+app.use("/api/typebot", authMiddleware, require("./routes/typebot"))
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
