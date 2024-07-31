@@ -1,4 +1,4 @@
-const Typebot = require("../models/Typebot");
+const Typebot = require("../models/TypeBot");
 
 
 const addtypebot = async (req, res, next) => {
